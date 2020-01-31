@@ -71,11 +71,11 @@ def extractExpiryDate():
     MainPathtext = "D:\MainData\FLIR Phase 8 TXT"
     ReadingCSV= open(PathForCSV, 'w+', encoding="utf8",errors="ignore",newline="")
     WritingCSV = csv.writer(ReadingCSV, quoting=csv.QUOTE_ALL, delimiter=',')
-    WritingCSV.writerow([ "Txt Path & File Name", "file name",'Output_String', 'Keywords', 'Expiry Date'])
+    WritingCSV.writerow([ "Txt Path & File Name", "file name",'ListofFlirProducts', 'Keywords', 'Expiry Date'])
     count = 0
 # Walking through the directories
     for root, dir, files in os.walk(MainPathtext):
-    #Fetching a single file\
+    #Fetching a single file
         for singFile in files:
      #Getting only text files
             if ".txt" in singFile:
@@ -219,18 +219,14 @@ def extractExpiryDate():
                 # '(Agreement will expire(.*?).{100})',
                 # '(expires on(.*?).{100})']
                 # keywords = ['((\d?\d.?,?\d?[.]\s?)\s?Indemnification((.*?).{2000}))']
-                keywords = [
-                    # 'place of business at(.*?)(place of business at(.*?).{250})',
-                    # 'located at(.*?)(located at(.*?).{350})'
-                            '(Territory:(.*?).{550})','(Territory(.*?).{350})'
-                            ]
+                keywords = ['(Territory[.] Company(.*?).{150})']
                 date,date1,date2,foundOptions,dateObj='',"","","",""
                 for i in keywords:
                     dateObj = re.search(i, str2, re.I | re.M)
                     if dateObj:
                         date1 = dateObj.group()
                         index = str2.index(date1)
-                        date3=str2[index-40:index]
+                        date3=str2[index-0:index]
                         date2=date3+date1
                         date = i
                         foundOptions = findDate(date2)
@@ -311,7 +307,7 @@ def remainingBatch():
             str2 = strip_non_ascii(str1)
             did=""
             date, date2, foundOptions, dateObj = '', "", "", ""
-            keywords = ['((\d?\d.?,?\d?.\s?)\s?Acceptance Criteria(.*?).{1000})']
+            keywords = ['(flir contact:?(.*?).{200})']
             date, date1, foundOptions, dateObj,foundOptions = '','', "", "", ""
             for i in keywords:
                 dateObj = re.search(i, str2, re.I | re.M)
