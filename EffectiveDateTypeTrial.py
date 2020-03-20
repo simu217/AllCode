@@ -423,7 +423,7 @@ def strip_non_ascii(string):
 
 def ORFile():
     # Opening the csv file so that we can append the changes to it.
-    f = open('D:\MainData\csv files\FLIR 11.1\FLIR Phase 8 TXT\Flir_P8_EffectiveDate.csv', 'w+',
+    f = open('D:\MainData\csv files\Carndinal\Cardinal_EffectiveDate.csv', 'w+',
              encoding="utf8",errors="ignore",
              newline="")
     w = csv.writer(f, quoting=csv.QUOTE_ALL, delimiter=',')
@@ -517,7 +517,7 @@ def ORFile():
 
 
     # File which contains listing of files on which code has to run.
-    f = open("D:\MainData/remainingbatch.csv","r+",errors="ignore")
+    f = open("D:/remainingbatch1.csv","r+",errors="ignore")
     reader = csv.DictReader(f)
 
     count = 0

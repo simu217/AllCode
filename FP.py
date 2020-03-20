@@ -57,7 +57,7 @@ def by_and_between(text, txtContent2, content):
 def ORFile():
     # Opening the csv file so that we can append the changes to it.
 
-    f = open('D:\MainData\csv files\FLIR 11.1\FLIR Phase 8 TXT\FP_Flir_P8.csv', 'w+', encoding="utf8",
+    f = open('D:\MainData\csv files\Carndinal\Cardinal_FP.csv', 'w+', encoding="utf8",
              errors="ignore",
              newline="")
     w = csv.writer(f, quoting=csv.QUOTE_ALL, delimiter=',')
@@ -181,9 +181,6 @@ def ORFile():
 
                 w.writerow([newPath, newEnt, bnb[0],list1])
 
-
-
-
                 if bnb[0] == "No Match":
                     nmCount = nmCount + 1
 
@@ -207,8 +204,8 @@ def checkList(txtContent2,str4):
     return list1
 
 def remainingBatch():
-    PathForCSV = 'D:\MainData\csv files\Brightstar\Brightstar 3720/Brightstar_FP_.csv'
-    RemainingfilesList='D:\MainData/remainingbatch.csv'
+    PathForCSV = 'D:\MainData\csv files\Carndinal\Cardinal_FP.csv'
+    RemainingfilesList='D:/remainingbatch.csv'
     RemainingFiles = open(RemainingfilesList, 'r+', encoding="utf8", errors="ignore")
     reading = csv.reader(RemainingFiles)
     ReadingCSV = open(PathForCSV, 'w+', encoding="utf8",errors="ignore", newline="")
@@ -216,14 +213,12 @@ def remainingBatch():
     WritingCSV.writerow(['Path & File Name', 'First party', 'By and Between'])
     count = 0
 
-    f1 = open('D:\MainData\csv files\Brightstar/BrightstarEntityList.txt', 'r',errors="ignore")
+    f1 = open('D:\MainData\csv files\Carndinal\CardinalSubsidiaries.txt', 'r',errors="ignore")
     txtContent = f1.read()
 
     txtContent2 = txtContent.split(":")
-    print(txtContent2)
 
     for row in reading:
-        try:
             file1 = open(row[0], 'r+', encoding="utf8",errors="ignore")
             count=count+1
             content = file1.read()
@@ -232,8 +227,8 @@ def remainingBatch():
             # str4=strip_non_ascii(str1)
             # List of Google Entities
             googleEntities = []
-
-            # by and between
+            #
+            # # by and between
             matchObj = re.search(r'by and between((.*) and((.*).{100}))', str4, re.M | re.I)
 
             matchObj1 = re.search(r'between((.*?) and((.*).{100}))', str4, re.M | re.I)
@@ -318,17 +313,14 @@ def remainingBatch():
 
             WritingCSV.writerow([row[0], newEnt, bnb[0],list1])
 
-            print("Scanned :" + count + " Files" + "\tFile Name: " + row[0])
+            print("Scanned :" + str(count) + " Files" + "\tFile Name: " + row[0])
 
-            file1.close()
-        except:
-            WritingCSV.writerow([row[0]])
 
 # ===========================================================================================#
 
 def main():
-    ORFile()
-    # remainingBatch()
+    # ORFile()
+    remainingBatch()
 
 if __name__ == '__main__':
 

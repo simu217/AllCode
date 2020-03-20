@@ -741,12 +741,12 @@ def strip_non_ascii(string):
 
 def ORFile():
     # Opening the csv file so that we can append the changes to it.
-    f = open('D:\MainData\csv files\FLIR 11.1\FLIR Phase 8 TXT\FlirP8_Title_Type_2816.csv', 'w+',
+    f = open('D:\MainData\csv files\Carndinal\Cardinal_Title_Type.csv', 'w+',
              newline='', encoding="utf8", errors="ignore")
     w = csv.writer(f, quoting=csv.QUOTE_ALL, delimiter=',')
     w.writerow(['Path & File Name', 'String' ,"Title",'Type' ])
     count=0
-    for root, dir, files in os.walk("D:\MainData\FLIR Phase 8 TXT"):
+    for root, dir, files in os.walk("D:\MainData\TXT"):
         # Fetching a single file
         for singFile in files:
             # Getting only text files
@@ -779,39 +779,36 @@ def ORFile():
                     if not dateObj:
                         titleString= "No Match"
                         type= ["No Match","NO MATCH"]
-                print(count, "---", singFile, " Files Processed ..!", titleString, "----", type[0], "----", type[1])
+                print(count, "---", singFile, " Files Processed ..!")
                 # Writing changes to the csv
                 w.writerow([newPath,singFile, titleString ,type[0] ,type[1],str3])
-
                 file1.close()
 
 def remainingBatch():
-    PathForCSV = 'D:\MainData\csv files\Brightstar\Brightstar 3720/Title_3720.csv'
-    RemainingfilesList='D:\MainData/remainingbatch.csv'
+    PathForCSV = 'D:\MainData\csv files\Carndinal\Cardinal_Title_Type.csv'
+    RemainingfilesList='D:\\remainingbatch.csv'
     RemainingFiles = open(RemainingfilesList, 'r+', encoding="utf8", errors="ignore")
     reading = csv.reader(RemainingFiles)
     ReadingCSV = open(PathForCSV, 'w+', encoding="utf8",errors="ignore", newline="")
-    ReadingCSV1 = open("D:\MainData\csv files\Brightstar\BS- ZP Test\SpecialCharListing.csv", 'w+', encoding="utf8",errors="ignore", newline="")
     WritingCSV = csv.writer(ReadingCSV, quoting=csv.QUOTE_ALL, delimiter=',')
-    WritingCSV1 = csv.writer(ReadingCSV1, quoting=csv.QUOTE_ALL, delimiter=',')
     WritingCSV.writerow(['Path & File Name','Output String','title','type'])
     count = 0
     for row in reading:
-        try:
             file1 = open(row[0], 'r+', encoding="utf8",errors="ignore")
             count=count+1
             content = file1.read()
             text = content.split()
             str1= ' '.join(str(e) for e in text)
-            str2 = strip_non_ascii(str1)
+
             # row1 = strip_non_ascii(row[0])
-            str2 = str1[:500]
+            str3= str1[:500]
+            str2 = strip_non_ascii(str3)
             did=""
             date, date2, foundOptions, dateObj = '', "", "", ""
-            # s
             titleList = ['((.*)this)((.*?).{69})', '((.*)addendum)((.*?).{60})', '((.*)amendment)((.*?).{60})',
                          '((.*)summary)((.*?).{60})', '((.*)dear)((.*?).{60})', '(.*)re:((.*?).{60})',
-                         '((.*)form(.*?).{60})', '((.*)order(.*?).{60})','((.*)exhibit(.*?).{60})', '((.*)agreement)((.*?).{60})', '((.*)statement of work)((.*?).{60})', '((.*)contract )((.*?).{60})']
+                         '((.*)form(.*?).{60})', '((.*)order(.*?).{60})','((.*)exhibit(.*?).{60})',
+                         '((.*)agreement)((.*?).{60})', '((.*)statement of work)((.*?).{60})', '((.*)contract )((.*?).{60})']
             dateObj = ''
             type, titleString, titleKey = [], [], []
             for i in titleList:
@@ -819,28 +816,21 @@ def remainingBatch():
                 if dateObj:
                     titleString = dateObj.group()
                     type = extractType(titleString.lower(), titleString)
+                    print(type)
                     break
                 if not dateObj:
                     titleString = "No Match"
                     type = ["No Match", "NO MATCH"]
-            print(count, "---", row[0], " Files Processed ..!", titleString, "----", type[0], "----", type[1])
+            print(count, "---", row[0], " Files Processed ..!")
             # Writing changes to the csv
             WritingCSV.writerow([row[0],  titleString, type[0], type[1]])
-            print([row[0],  titleString, type[0], type[1]])
-            print("ended")
-            # WritingCSV.writerow([row[0],  str2])
-            file1.close()
-        except:
-            WritingCSV1.writerow([row[0]])
 
 
 # ===========================================================================================#
 
 def main():
+    remainingBatch()
 
-    # remainingBatch()
-
-    ORFile()
 if __name__ == '__main__':
     start_time = time.time()
     main()

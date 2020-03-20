@@ -67,8 +67,8 @@ def findDate(date2):
     return list1
 
 def extractExpiryDate():
-    PathForCSV = "D:\MainData\csv files\FLIR 11.1\FLIR Phase 8 TXT/FLIR_P8_Territory.csv"
-    MainPathtext = "D:\MainData\FLIR Phase 8 TXT"
+    PathForCSV = "D:\MainData\csv files\Carndinal/Cardinal_Expiry.csv"
+    MainPathtext = "D:\MainData\TXT"
     ReadingCSV= open(PathForCSV, 'w+', encoding="utf8",errors="ignore",newline="")
     WritingCSV = csv.writer(ReadingCSV, quoting=csv.QUOTE_ALL, delimiter=',')
     WritingCSV.writerow([ "Txt Path & File Name", "file name",'ListofFlirProducts', 'Keywords', 'Expiry Date'])

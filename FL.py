@@ -11,12 +11,12 @@ def strip_non_ascii(string):
 
 def ORFilePolyglot():
     # Opening the csv file so that we can append the changes to it.
-    f = open('D:\MainData\csv files\FLIR 11.1\FLIR Phase 8 TXT/FLIR_P8_FL.csv', 'w+', encoding="utf8",errors="ignore",newline="")
+    f = open('D:\MainData\csv files\Carndinal/Cardinal_FL.csv', 'w+', encoding="utf8",errors="ignore",newline="")
     w = csv.writer(f, quoting=csv.QUOTE_ALL, delimiter=',')
     w.writerow(['Path', 'File Name', 'Ployglot', 'Langdetect'])
     count = 0
     # Walking through the directories
-    for root, dir, files in os.walk("D:\MainData\FLIR Phase 8 TXT"):
+    for root, dir, files in os.walk("D:\MainData\TXT"):
 
         # Fetching a single file
 

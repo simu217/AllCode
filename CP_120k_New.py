@@ -241,7 +241,7 @@ def last_sign_date(content1):
 
 def ORFile():
     # Opening the csv file so that we can write the changes to it.
-    f = open('D:\MainData\csv files\FLIR 11.1\FLIR Phase 8 TXT/FLIR_P8_CP.csv', 'w+',
+    f = open('D:\MainData\csv files\Carndinal/Cardinal_CP.csv', 'w+',
              newline='', encoding="utf8", errors="ignore")
     w = csv.writer(f, quoting=csv.QUOTE_ALL, delimiter=',')
     # w.writerow(['File Name', 'CP from File Name', 'CP_String', 'Signature block', 'CP Search in Doc',"One word from filename","One word search","Two words from filename","Two words search"])
@@ -262,7 +262,7 @@ def ORFile():
 
     count = 0
 
-    for root, dir, files in os.walk("D:\MainData\FLIR Phase 8 TXT  "):
+    for root, dir, files in os.walk("D:\MainData\TXT"):
         # Fetching a single file
         for singFile in files:
             # Getting only text files
@@ -696,9 +696,7 @@ def RemainingBatch():
             print(count, row[0])
 
 def main():
-
     ORFile()
-    # RemainingBatch()
 
 if __name__ == '__main__':
     main()
